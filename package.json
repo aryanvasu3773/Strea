@@ -4,7 +4,7 @@
   "description": "Discord watch party bot using AnikotoTV",
   "main": "dist/index.js",
   "scripts": {
-    "build": "echo 'No build step required'",
+    "build": "echo 'Build skipped - using precompiled dist'",
     "start": "node dist/index.js",
     "deploy-commands": "node dist/bot/deploy.js"
   },
