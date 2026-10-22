@@ -1,11 +1,10 @@
 import type { MediaProvider } from './types';
 import { getGuildConfig } from '../store/guild-config';
-import { PlexProvider } from './plex';
-import { JellyfinProvider } from './jellyfin';
+import { AnikotoTvProvider } from './anikototv';
 
 export type { MediaItem, MediaProvider } from './types';
 
-// Provider instances are cached per guild — recreated only when /setup is re-run.
+// Provider instances are cached per guild
 const cache = new Map<string, MediaProvider>();
 
 export function getProvider(guildId: string): MediaProvider {
@@ -14,20 +13,8 @@ export function getProvider(guildId: string): MediaProvider {
   const cfg = getGuildConfig(guildId);
   if (!cfg) throw new Error(`Guild ${guildId} has no media server configured`);
 
-  let provider: MediaProvider;
-  switch (cfg.provider) {
-    case 'plex':
-      provider = new PlexProvider(cfg.mediaUrl, cfg.apiKey, cfg.playbackToken);
-      break;
-    case 'jellyfin':
-      provider = new JellyfinProvider('jellyfin', cfg.mediaUrl, cfg.apiKey);
-      break;
-    case 'emby':
-      provider = new JellyfinProvider('emby', cfg.mediaUrl, cfg.apiKey);
-      break;
-    default:
-      throw new Error(`Unknown provider: ${(cfg as { provider: string }).provider}`);
-  }
+  // Sole provider: Anikoto
+  const provider = new AnikotoTvProvider(cfg.mediaUrl);
 
   cache.set(guildId, provider);
   return provider;
