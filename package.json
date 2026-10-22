@@ -7,7 +7,7 @@
     "build": "echo 'Build skipped - using precompiled dist'",
     "start": "node dist/index.js",
     "deploy-commands": "node dist/bot/deploy.js"
-  },
+  }
   "dependencies": {
     "axios": "^1.6.8",
     "discord.js": "^14.14.1",
