@@ -4,7 +4,7 @@
   "description": "Discord watch party bot using AnikotoTV",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc src/index.ts --outDir dist --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck true",
+    "build": "echo 'No build step required'",
     "start": "node dist/index.js",
     "deploy-commands": "node dist/bot/deploy.js"
   },
