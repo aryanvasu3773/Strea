@@ -1,7 +1,7 @@
 {
   "name": "discordwatchparty",
   "version": "1.0.0",
-  "description": "Discord watch party bot using Anikoto",
+  "description": "Discord watch party bot using AnikotoTV",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
