@@ -1,22 +1,21 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+// ── Connection test ───────────────────────────────────────────────────────────
+async function testConnection(url) {
+    try {
+        // Test connection directly to the AnikotoTV URL
+        const response = await axios_1.default.get(url, {
+            timeout: 8_000,
+        });
 
-export const data = new SlashCommandBuilder()
-    .setName('setup')
-    .setDescription('Configure Strea for AnikotoTV')
-    .addStringOption(option =>
-        option
-            .setName('url')
-            .setDescription('Enter your AnikotoTV URL (e.g., https://anikototv.to)')
-            .setRequired(true)
-    );
-
-export async function execute(interaction: ChatInputCommandInteraction) {
-    const targetUrl = interaction.options.getString('url', true);
-
-    // TODO: Save targetUrl to your configuration file or database storage here
-
-    await interaction.reply({
-        content: `Successfully configured Strea with AnikotoTV URL: **${targetUrl}**`,
-        ephemeral: true
-    });
+        // axios exposes the final URL after any redirects (e.g., http to https upgrade)
+        const finalUrl = response.request?.res?.responseUrl;
+        let resolvedUrl = url;
+        if (finalUrl) {
+            const parsed = new URL(finalUrl);
+            resolvedUrl = `${parsed.protocol}//${parsed.host}`;
+        }
+        return { ok: true, resolvedUrl };
+    }
+    catch {
+        return { ok: false, resolvedUrl: url };
+    }
 }
